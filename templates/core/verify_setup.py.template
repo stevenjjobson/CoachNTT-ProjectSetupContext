@@ -1,0 +1,348 @@
+#!/usr/bin/env python3
+"""
+Verify the [PROJECT_NAME] setup is working correctly.
+Run this before starting each session to ensure a clean working environment.
+"""
+import sys
+import os
+import subprocess
+from pathlib import Path
+from typing import List, Tuple, Optional
+
+# ANSI color codes for terminal output
+GREEN = '\033[92m'
+RED = '\033[91m'
+YELLOW = '\033[93m'
+BLUE = '\033[94m'
+RESET = '\033[0m'
+BOLD = '\033[1m'
+
+def print_header(message: str) -> None:
+    """Print a formatted header."""
+    print(f"\n{BOLD}{message}{RESET}")
+    print("=" * len(message))
+
+def print_success(message: str) -> None:
+    """Print a success message."""
+    print(f"{GREEN}✓{RESET} {message}")
+
+def print_error(message: str) -> None:
+    """Print an error message."""
+    print(f"{RED}✗{RESET} {message}")
+
+def print_warning(message: str) -> None:
+    """Print a warning message."""
+    print(f"{YELLOW}⚠{RESET} {message}")
+
+def print_info(message: str) -> None:
+    """Print an info message."""
+    print(f"{BLUE}ℹ{RESET} {message}")
+
+def check_python_version() -> bool:
+    """Check if Python version meets requirements."""
+    print_header("Checking Python Version")
+    
+    required_major = 3
+    required_minor = 8  # Adjust based on your project needs
+    
+    current_major = sys.version_info.major
+    current_minor = sys.version_info.minor
+    
+    if current_major == required_major and current_minor >= required_minor:
+        print_success(f"Python {current_major}.{current_minor} (required: {required_major}.{required_minor}+)")
+        return True
+    else:
+        print_error(f"Python {current_major}.{current_minor} (required: {required_major}.{required_minor}+)")
+        return False
+
+def check_required_files() -> bool:
+    """Check that essential project files exist."""
+    print_header("Checking Required Files")
+    
+    required_files = [
+        "CLAUDE.md",
+        "SESSION_LOG.md", 
+        "Implementation_Cadence.md",
+        "NEXT_SESSION.md",
+        ".env",
+        ".gitignore",
+        # Add project-specific required files here
+        # "requirements.txt",
+        # "package.json",
+        # "Makefile",
+    ]
+    
+    all_exist = True
+    for file in required_files:
+        if Path(file).exists():
+            print_success(f"{file}")
+        else:
+            print_error(f"{file} - MISSING")
+            all_exist = False
+    
+    return all_exist
+
+def check_directory_structure() -> bool:
+    """Check that project directory structure is correct."""
+    print_header("Checking Directory Structure")
+    
+    required_dirs = [
+        "src",
+        "tests",
+        "docs",
+        # Add project-specific directories
+        # "src/core",
+        # "src/services",
+        # "tests/unit",
+        # "tests/integration",
+    ]
+    
+    all_exist = True
+    for dir_path in required_dirs:
+        if Path(dir_path).exists() and Path(dir_path).is_dir():
+            print_success(f"{dir_path}/")
+        else:
+            print_error(f"{dir_path}/ - MISSING")
+            all_exist = False
+    
+    return all_exist
+
+def check_environment_variables() -> bool:
+    """Check that required environment variables are set."""
+    print_header("Checking Environment Variables")
+    
+    # Load .env file if it exists
+    env_file = Path(".env")
+    if env_file.exists():
+        print_info("Loading .env file")
+        with open(env_file) as f:
+            for line in f:
+                if line.strip() and not line.startswith("#"):
+                    key, value = line.strip().split("=", 1)
+                    os.environ[key] = value
+    
+    required_vars = [
+        "LAST_COMPLETED_SESSION",
+        "CURRENT_PHASE",
+        # Add project-specific env vars
+        # "DATABASE_URL",
+        # "API_KEY",
+    ]
+    
+    all_set = True
+    for var in required_vars:
+        value = os.getenv(var)
+        if value:
+            # Mask sensitive values
+            display_value = value if "KEY" not in var and "PASSWORD" not in var else "***"
+            print_success(f"{var}={display_value}")
+        else:
+            print_error(f"{var} - NOT SET")
+            all_set = False
+    
+    return all_set
+
+def check_dependencies() -> bool:
+    """Check that project dependencies are installed."""
+    print_header("Checking Dependencies")
+    
+    checks_passed = True
+    
+    # Python dependencies
+    if Path("requirements.txt").exists():
+        try:
+            import pkg_resources
+            with open("requirements.txt") as f:
+                requirements = [line.strip() for line in f if line.strip() and not line.startswith("#")]
+            
+            for req in requirements:
+                try:
+                    pkg_resources.require(req)
+                    print_success(f"Python: {req}")
+                except:
+                    print_error(f"Python: {req} - NOT INSTALLED")
+                    checks_passed = False
+        except Exception as e:
+            print_warning(f"Could not check Python dependencies: {e}")
+    
+    # Add checks for other dependency managers
+    # npm/yarn, cargo, go mod, etc.
+    
+    return checks_passed
+
+def check_external_services() -> bool:
+    """Check that required external services are running."""
+    print_header("Checking External Services")
+    
+    services_ok = True
+    
+    # Example: Check if PostgreSQL is running
+    # try:
+    #     result = subprocess.run(
+    #         ["pg_isready"], 
+    #         capture_output=True, 
+    #         text=True,
+    #         timeout=5
+    #     )
+    #     if result.returncode == 0:
+    #         print_success("PostgreSQL is running")
+    #     else:
+    #         print_error("PostgreSQL is not running")
+    #         services_ok = False
+    # except Exception:
+    #     print_warning("PostgreSQL check skipped (pg_isready not found)")
+    
+    # Example: Check if Docker is running
+    # try:
+    #     result = subprocess.run(
+    #         ["docker", "info"], 
+    #         capture_output=True, 
+    #         text=True,
+    #         timeout=5
+    #     )
+    #     if result.returncode == 0:
+    #         print_success("Docker is running")
+    #     else:
+    #         print_error("Docker is not running")
+    #         services_ok = False
+    # except Exception:
+    #     print_warning("Docker check skipped")
+    
+    if not services_ok:
+        print_info("Start services with: make start-services")
+    else:
+        print_info("No external services configured")
+    
+    return True  # Don't fail on external services
+
+def run_quick_tests() -> bool:
+    """Run a quick test suite to verify basics work."""
+    print_header("Running Quick Tests")
+    
+    # Example: Run a simple import test
+    # try:
+    #     sys.path.insert(0, str(Path(__file__).parent / "src"))
+    #     import core
+    #     print_success("Core module imports successfully")
+    #     return True
+    # except ImportError as e:
+    #     print_error(f"Import failed: {e}")
+    #     return False
+    
+    print_info("No quick tests configured")
+    return True
+
+def check_git_status() -> bool:
+    """Check git repository status."""
+    print_header("Checking Git Status")
+    
+    try:
+        # Check if we're in a git repo
+        result = subprocess.run(
+            ["git", "rev-parse", "--git-dir"],
+            capture_output=True,
+            text=True
+        )
+        
+        if result.returncode != 0:
+            print_error("Not a git repository")
+            return False
+        
+        # Check for uncommitted changes
+        result = subprocess.run(
+            ["git", "status", "--porcelain"],
+            capture_output=True,
+            text=True
+        )
+        
+        if result.stdout.strip():
+            print_warning("Uncommitted changes detected")
+            # Show first 5 changed files
+            changes = result.stdout.strip().split('\n')[:5]
+            for change in changes:
+                print(f"  {change}")
+            if len(result.stdout.strip().split('\n')) > 5:
+                print(f"  ... and {len(result.stdout.strip().split('\n')) - 5} more")
+        else:
+            print_success("Working directory clean")
+        
+        # Show current branch
+        result = subprocess.run(
+            ["git", "branch", "--show-current"],
+            capture_output=True,
+            text=True
+        )
+        print_info(f"Current branch: {result.stdout.strip()}")
+        
+        return True
+        
+    except Exception as e:
+        print_error(f"Git check failed: {e}")
+        return False
+
+def display_session_info() -> None:
+    """Display information about the current session."""
+    print_header("Session Information")
+    
+    last_session = os.getenv("LAST_COMPLETED_SESSION", "None")
+    current_phase = os.getenv("CURRENT_PHASE", "Unknown")
+    
+    print_info(f"Last completed session: {last_session}")
+    print_info(f"Current phase: {current_phase}")
+    
+    # Calculate next session
+    if last_session != "None":
+        try:
+            phase, session = last_session.split(".")
+            next_session = f"{phase}.{int(session) + 1}"
+            print_info(f"Next session: {next_session}")
+        except:
+            print_warning("Could not determine next session")
+
+def main() -> int:
+    """Run all verification checks."""
+    print(f"{BOLD}🔍 Verifying [PROJECT_NAME] Setup{RESET}")
+    print("=" * 40)
+    
+    checks = [
+        ("Python Version", check_python_version),
+        ("Required Files", check_required_files),
+        ("Directory Structure", check_directory_structure),
+        ("Environment Variables", check_environment_variables),
+        ("Dependencies", check_dependencies),
+        ("External Services", check_external_services),
+        ("Quick Tests", run_quick_tests),
+        ("Git Status", check_git_status),
+    ]
+    
+    results = []
+    for check_name, check_func in checks:
+        try:
+            results.append(check_func())
+        except Exception as e:
+            print_error(f"{check_name} check failed with error: {e}")
+            results.append(False)
+    
+    # Display session info regardless of check results
+    display_session_info()
+    
+    # Summary
+    print_header("Summary")
+    passed = sum(results)
+    total = len(results)
+    
+    if all(results):
+        print_success(f"All {total} checks passed! ✨")
+        print_info("\nNext steps:")
+        print("1. Review NEXT_SESSION.md for session goals")
+        print("2. Start your development environment")
+        print("3. Begin working on session tasks")
+        return 0
+    else:
+        print_error(f"{passed}/{total} checks passed")
+        print_warning("\nPlease fix the issues above before starting your session")
+        print_info("For help, check docs/TROUBLESHOOTING.md")
+        return 1
+
+if __name__ == "__main__":
+    sys.exit(main())

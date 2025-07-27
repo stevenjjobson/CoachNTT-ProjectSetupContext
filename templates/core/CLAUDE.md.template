@@ -1,0 +1,117 @@
+# 🧠 [PROJECT_NAME] - AI Context & Session Management
+
+## 🎯 Project Overview
+**What**: [One-line description of what this project does]  
+**Core Feature**: [What makes this project unique/important]  
+**Tech Stack**: [Primary languages, frameworks, and tools]  
+**Status**: Phase [X] - [Phase Name] ([Progress]%)
+
+## 📍 Current State (Updated: [YYYY-MM-DD])
+
+### ✅ Completed Sessions
+- **Session 0.1**: [Session Title]
+  - [Key accomplishment 1]
+  - [Key accomplishment 2]
+  - [Key accomplishment 3]
+  - [Any important notes]
+
+[Add more sessions as completed]
+
+### 🏗️ Architecture Summary
+```
+[Project structure or architecture diagram]
+src/
+├── core/
+│   ├── [module1]/
+│   └── [module2]/
+├── services/
+├── utils/
+└── tests/
+```
+
+### 🔑 Key Design Decisions
+1. **[Decision Category]**: [Specific choice and rationale]
+2. **[Decision Category]**: [Specific choice and rationale]
+3. **[Decision Category]**: [Specific choice and rationale]
+
+### 🚀 Quick Start Commands
+```bash
+# Start development environment
+[command]
+
+# Run tests
+[command]
+
+# Other common commands
+[command]
+```
+
+## 📋 Next Session Plan
+
+### Session [X.Y]: [Session Title] (Lines [XXX-YYY])
+**Prerequisites**: Session [X.Y] complete ✅  
+**Focus**: [Primary objective for this session]
+
+**Key Tasks**:
+- [ ] [Specific task 1]
+- [ ] [Specific task 2]
+- [ ] [Specific task 3]
+- [ ] **Checkpoint**: [Validation step]
+
+**Files to Load**:
+1. This file (CLAUDE.md)
+2. Implementation_Cadence.md (lines [XXX-YYY] for Session [X.Y])
+3. [Specific file/directory needed]
+4. [Additional files as needed]
+
+## 🎯 How to Start Next Session
+
+```
+I'm continuing work on [PROJECT_NAME]. We completed Session [X.Y] ([Session Title]).
+
+Please review:
+1. @CLAUDE.md
+2. @Implementation_Cadence.md (lines [XXX-YYY] for Session [X.Y])
+3. @[relevant file path]
+
+Ready to start Session [X.Y]: [Session Title].
+```
+
+## 📊 Progress Tracking
+- Phase 0: [Phase Name] [▓▓▓░░░] XX% (Y/Z sessions)
+- Phase 1: [Phase Name] [░░░░░░] 0%
+- Phase 2: [Phase Name] [░░░░░░] 0%
+- Phase 3: [Phase Name] [░░░░░░] 0%
+
+## ⚠️ Important Notes
+- **Context Window**: Keep initial load under 3000 tokens
+- **Progressive Loading**: Start minimal, load files as needed
+- **[Project-Specific Note 1]**: [Important consideration]
+- **[Project-Specific Note 2]**: [Important consideration]
+
+## 🔧 Development Setup
+
+### Prerequisites
+- [Requirement 1]
+- [Requirement 2]
+- [Requirement 3]
+
+### Environment Variables
+```bash
+# See .env.example for all options
+[KEY1]=value1
+[KEY2]=value2
+```
+
+### Common Issues
+1. **[Issue]**: [Solution]
+2. **[Issue]**: [Solution]
+
+## 📚 Resources
+- [Link to important documentation]
+- [Link to project board/issues]
+- [Link to design docs]
+
+---
+
+*This file is the primary context source for AI assistants. Keep it updated but concise.*

@@ -1,0 +1,294 @@
+# 🚀 [PROJECT_NAME]: Implementation Cadence
+
+---
+**Title**: Implementation Guide with Context Window Optimization  
+**Version**: 1.0  
+**Date**: [YYYY-MM-DD]  
+**Purpose**: Provide a structured approach to implementing [PROJECT_NAME] with quality built-in from foundation  
+**Format**: Segmented checklists designed for AI-assisted development  
+
+---
+
+## 📋 Implementation Overview
+
+### Core Implementation Principles
+1. **Foundation First**: Build quality into the foundation, not as an afterthought
+2. **Session-Based**: Work in focused 2-3 hour sessions with clear boundaries
+3. **Progressive Enhancement**: Start simple, add complexity incrementally
+4. **Continuous Validation**: Test and verify at every step
+5. **Context Optimization**: Manage AI context windows effectively
+
+### Context Window Management Strategy
+- **Max Items per Session**: 15-20 checklist items
+- **Session Duration**: 2-3 hours focused work
+- **Checkpoint Frequency**: After each major component
+- **Documentation**: Update CLAUDE.md and SESSION_LOG.md after each session
+- **Testing**: Validate functionality before moving forward
+
+### Session Structure Template
+```markdown
+## Session [X.Y]: [Topic]
+**Prerequisites**: [Previous sessions]
+**Context Files**: [Max 3-5 files]
+**Key Requirements**: [Core needs for this session]
+**Deliverables**: [Specific outputs]
+**Validation**: [How to verify success]
+```
+
+---
+
+## 🛡️ Phase 0: Foundation & Architecture (Week 1)
+
+### Session 0.1: Project Foundation & Core Principles
+**Context Window**: ~2000 tokens
+**Prerequisites**: None
+**Duration**: 2-3 hours
+
+- [ ] Initialize project repository with README.md
+- [ ] Create project structure:
+  ```bash
+  mkdir -p src/{core,services,utils} tests/{unit,integration} docs scripts
+  ```
+- [ ] Set up version control (.gitignore, .gitattributes)
+- [ ] Create initial documentation structure
+- [ ] Define core architectural principles
+- [ ] Set up development environment (.env.example)
+- [ ] Create Makefile or task runner configuration
+- [ ] Initialize dependency management (requirements.txt, package.json, etc.)
+- [ ] Set up pre-commit hooks
+- [ ] Create CONTRIBUTING.md with coding standards
+- [ ] **Checkpoint**: Project structure ready, can run basic commands
+
+**Validation**:
+- [ ] Git repository initialized with proper ignores
+- [ ] Project structure follows conventions
+- [ ] Development environment documented
+
+---
+
+### Session 0.2: Testing & Quality Infrastructure
+**Context Window**: ~2500 tokens
+**Prerequisites**: Session 0.1 complete
+**Duration**: 2-3 hours
+
+- [ ] Set up testing framework
+- [ ] Create test directory structure
+- [ ] Write first unit test (even if just a placeholder)
+- [ ] Configure code coverage tools
+- [ ] Set up linting and formatting tools
+- [ ] Create CI/CD pipeline configuration
+- [ ] Add automated quality checks
+- [ ] Document testing approach in docs/TESTING.md
+- [ ] Create test data fixtures directory
+- [ ] Set up integration test framework
+- [ ] **Checkpoint**: Can run tests and see coverage
+
+**Validation**:
+- [ ] `make test` or equivalent runs successfully
+- [ ] Coverage reporting works
+- [ ] Linting passes on all files
+
+---
+
+### Session 0.3: Core Architecture Implementation
+**Context Window**: ~3000 tokens
+**Prerequisites**: Session 0.2 complete
+**Duration**: 2-3 hours
+
+- [ ] Design and document core domain models
+- [ ] Create base classes/interfaces for key concepts
+- [ ] Implement basic dependency injection or service locator
+- [ ] Set up configuration management
+- [ ] Create error handling framework
+- [ ] Implement logging infrastructure
+- [ ] Design data flow architecture
+- [ ] Create architectural decision records (ADRs)
+- [ ] Write architecture diagrams
+- [ ] Set up database/storage abstraction layer
+- [ ] **Checkpoint**: Core architecture documented and stubbed
+
+**Validation**:
+- [ ] Core modules can be imported without errors
+- [ ] Architecture documented in diagrams
+- [ ] Key design decisions recorded
+
+---
+
+## 🏗️ Phase 1: Core Features (Weeks 2-3)
+
+### Session 1.1: [Primary Feature Name]
+**Context Window**: ~2500 tokens
+**Prerequisites**: Phase 0 complete
+**Duration**: 2-3 hours
+
+- [ ] Define feature requirements and acceptance criteria
+- [ ] Create feature-specific models/entities
+- [ ] Implement basic CRUD operations
+- [ ] Write unit tests for all new code
+- [ ] Create integration tests for workflows
+- [ ] Add input validation
+- [ ] Implement error handling
+- [ ] Document API/interface
+- [ ] Add logging for debugging
+- [ ] Create feature documentation
+- [ ] **Checkpoint**: Feature works end-to-end with tests
+
+**Validation**:
+- [ ] All tests pass
+- [ ] Feature meets acceptance criteria
+- [ ] Documentation complete
+
+---
+
+### Session 1.2: [Secondary Feature Name]
+**Context Window**: ~2500 tokens
+**Prerequisites**: Session 1.1 complete
+**Duration**: 2-3 hours
+
+[Similar structure to Session 1.1, adapted for specific feature]
+
+---
+
+### Session 1.3: Integration & Polish
+**Context Window**: ~2500 tokens
+**Prerequisites**: Sessions 1.1-1.2 complete
+**Duration**: 2-3 hours
+
+- [ ] Integrate features together
+- [ ] Add cross-feature validation
+- [ ] Implement shared utilities
+- [ ] Refactor for code reuse
+- [ ] Add performance optimizations
+- [ ] Create end-to-end tests
+- [ ] Update documentation
+- [ ] Add usage examples
+- [ ] Profile and optimize hot paths
+- [ ] **Checkpoint**: Features work together seamlessly
+
+---
+
+## 🔧 Phase 2: Advanced Features (Weeks 4-5)
+
+### Session 2.1: [Advanced Feature Name]
+**Context Window**: ~3000 tokens
+**Prerequisites**: Phase 1 complete
+**Duration**: 2-3 hours
+
+[Structure similar to Phase 1 sessions, with more complex requirements]
+
+---
+
+## 🚀 Phase 3: Production Readiness (Week 6)
+
+### Session 3.1: Performance & Optimization
+**Context Window**: ~2500 tokens
+**Prerequisites**: Phase 2 complete
+**Duration**: 2-3 hours
+
+- [ ] Profile application performance
+- [ ] Optimize database queries
+- [ ] Add caching where appropriate
+- [ ] Implement rate limiting
+- [ ] Add request/response compression
+- [ ] Optimize memory usage
+- [ ] Create performance benchmarks
+- [ ] Document performance characteristics
+- [ ] Add monitoring hooks
+- [ ] **Checkpoint**: Performance meets requirements
+
+---
+
+### Session 3.2: Security & Hardening
+**Context Window**: ~2500 tokens
+**Prerequisites**: Session 3.1 complete
+**Duration**: 2-3 hours
+
+- [ ] Security audit all inputs
+- [ ] Implement authentication/authorization
+- [ ] Add data encryption at rest
+- [ ] Secure all API endpoints
+- [ ] Implement audit logging
+- [ ] Add rate limiting and DDoS protection
+- [ ] Create security documentation
+- [ ] Set up dependency vulnerability scanning
+- [ ] Configure secure defaults
+- [ ] **Checkpoint**: Security scan passes
+
+---
+
+### Session 3.3: Deployment & Operations
+**Context Window**: ~2500 tokens
+**Prerequisites**: Session 3.2 complete
+**Duration**: 2-3 hours
+
+- [ ] Create deployment scripts
+- [ ] Set up containerization (Docker)
+- [ ] Configure orchestration (Kubernetes/etc)
+- [ ] Create health check endpoints
+- [ ] Set up monitoring and alerting
+- [ ] Create runbooks for common issues
+- [ ] Document deployment process
+- [ ] Set up backup and recovery
+- [ ] Create rollback procedures
+- [ ] **Checkpoint**: Successfully deploy to staging
+
+---
+
+## 📋 Post-Implementation Checklist
+
+### Final Validation Session
+**Context Window**: ~2000 tokens
+**Prerequisites**: All phases complete
+**Duration**: 1-2 hours
+
+- [ ] Verify all requirements implemented
+- [ ] Run full test suite
+- [ ] Check documentation completeness
+- [ ] Validate performance metrics
+- [ ] Review security posture
+- [ ] Test disaster recovery procedures
+- [ ] Verify monitoring coverage
+- [ ] Update project README
+- [ ] Create release notes
+- [ ] Tag release version
+- [ ] **Final Checkpoint**: Project ready for production
+
+---
+
+## 🎯 Success Criteria
+
+### Implementation Metrics
+- Total Sessions: [X] (adjust based on project scope)
+- Average Session Duration: 2-3 hours
+- Context Window Efficiency: >80%
+- Checkpoint Success Rate: 100%
+- Feature Completion: 100%
+
+### Quality Metrics
+- Code Coverage: >[X]%
+- Documentation Coverage: 100%
+- Performance Targets: [Define specific metrics]
+- Security Scan: Pass
+- All Tests Passing: ✓
+
+---
+
+## 📝 Customization Notes
+
+### Adapting This Template:
+1. **Adjust session count** based on project complexity
+2. **Modify phase structure** to match your domain
+3. **Add domain-specific checkpoints** as needed
+4. **Scale up or down** based on team size
+5. **Include technology-specific** setup sessions
+
+### Remember:
+- Keep sessions focused and achievable
+- Document decisions as you make them
+- Test continuously, not just at the end
+- Maintain context window awareness
+- Update progress tracking regularly
+
+---
+
+*This implementation cadence is a living document. Update it as you learn what works best for your project.*

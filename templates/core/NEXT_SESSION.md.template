@@ -1,0 +1,79 @@
+# 🚀 Next Session Quick Start
+
+## Session [X.Y]: [Session Title]
+
+### Copy this to start the next session:
+```
+I'm continuing work on [PROJECT_NAME]. We completed Session [X.Y] ([Previous Session Title]).
+
+Please review:
+1. @CLAUDE.md
+2. @Implementation_Cadence.md (lines [XXX-YYY] for Session [X.Y])
+3. @[specific/file/if/needed.py]
+
+Ready to start Session [X.Y]: [Session Title].
+```
+
+### Pre-Session Checklist:
+- [ ] Run `./verify_setup.py` to check everything works
+- [ ] Start any required services (database, Docker, etc.)
+- [ ] Check that all tests from previous session still pass
+- [ ] Review any PRs or feedback from team
+- [ ] Have coffee/tea ready ☕
+
+### Session Goals:
+1. [Primary objective for this session]
+2. [Secondary objective]
+3. [Tertiary objective if applicable]
+
+### What Changed in Previous Session:
+- [Key change 1 that affects this session]
+- [Key change 2 that affects this session]
+- [Any new dependencies or tools added]
+- [Any decisions that impact upcoming work]
+
+### Known Issues/Blockers:
+- [Any unresolved issues from previous session]
+- [External dependencies needed]
+- [Questions needing clarification]
+
+### Context Files to Have Ready:
+```bash
+# Files likely to be needed this session
+src/[relevant/module/]
+tests/[relevant/tests/]
+docs/[relevant/documentation/]
+```
+
+### Quick Commands:
+```bash
+# Start development environment
+[project-specific command]
+
+# Run tests
+[project-specific test command]
+
+# Check code quality
+[project-specific lint command]
+```
+
+### Session Success Criteria:
+- [ ] [Measurable outcome 1]
+- [ ] [Measurable outcome 2]
+- [ ] All tests passing
+- [ ] Documentation updated
+- [ ] Session log updated
+
+### Notes from Previous Session:
+[Any important context, decisions, or reminders from the last session that will help with continuity]
+
+### Remember:
+- Keep initial context minimal
+- Load files progressively as needed
+- Take a break after 90 minutes
+- Commit work regularly
+- Update progress tracking
+
+---
+
+*This file should be updated at the end of each session to prepare for the next one.*

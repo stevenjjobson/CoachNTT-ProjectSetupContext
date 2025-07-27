@@ -1,0 +1,312 @@
+# Project Makefile with Session-Based Workflow Support
+# Customize the variables below for your project
+
+# Project Configuration
+PROJECT_NAME := [PROJECT_NAME]
+PYTHON := python3
+NODE := node
+NPM := npm
+
+# Colors for output
+GREEN := \033[0;32m
+YELLOW := \033[0;33m
+RED := \033[0;31m
+NC := \033[0m # No Color
+
+# Default target
+.DEFAULT_GOAL := help
+
+# Help command
+.PHONY: help
+help:
+	@echo "$(GREEN)$(PROJECT_NAME) - Session-Based Development Commands$(NC)"
+	@echo ""
+	@echo "$(YELLOW)Setup & Verification:$(NC)"
+	@echo "  make install          - Install all dependencies"
+	@echo "  make verify          - Run setup verification"
+	@echo "  make setup           - Complete project setup"
+	@echo ""
+	@echo "$(YELLOW)Development:$(NC)"
+	@echo "  make dev             - Start development server"
+	@echo "  make test            - Run all tests"
+	@echo "  make lint            - Run linters"
+	@echo "  make format          - Auto-format code"
+	@echo "  make build           - Build project"
+	@echo ""
+	@echo "$(YELLOW)Session Management:$(NC)"
+	@echo "  make session SESSION=X.Y  - Start a session"
+	@echo "  make save            - Quick commit (WIP)"
+	@echo "  make checkpoint      - Session checkpoint"
+	@echo "  make handoff         - Prepare session handoff"
+	@echo ""
+	@echo "$(YELLOW)Context Management:$(NC)"
+	@echo "  make context-optimize    - Optimize context"
+	@echo "  make context-analyze     - Analyze usage"
+	@echo "  make context-summary     - Generate summary"
+	@echo "  make context-minimal     - Create minimal context"
+	@echo ""
+	@echo "$(YELLOW)GraphQL (if applicable):$(NC)"
+	@echo "  make graphql-types       - Generate types"
+	@echo "  make graphql-scaffold    - Scaffold feature"
+	@echo "  make graphql-validate    - Validate schema"
+
+# ========== Setup & Verification ==========
+
+.PHONY: install
+install:
+	@echo "$(GREEN)Installing dependencies...$(NC)"
+	# Add your install commands here
+	# $(NPM) install
+	# $(PYTHON) -m pip install -r requirements.txt
+	@echo "$(GREEN)✓ Dependencies installed$(NC)"
+
+.PHONY: verify
+verify:
+	@echo "$(GREEN)Verifying setup...$(NC)"
+	@$(PYTHON) verify_setup.py
+
+.PHONY: setup
+setup: install
+	@echo "$(GREEN)Setting up project...$(NC)"
+	@mkdir -p src/{core,services,utils,interfaces}
+	@mkdir -p tests/{unit,integration,e2e}
+	@mkdir -p docs/{api,architecture,guides}
+	@mkdir -p scripts
+	@cp .env.example .env 2>/dev/null || true
+	@echo "$(GREEN)✓ Project setup complete$(NC)"
+
+# ========== Development ==========
+
+.PHONY: dev
+dev:
+	@echo "$(GREEN)Starting development server...$(NC)"
+	# Add your dev server command
+	# $(NPM) run dev
+	# $(PYTHON) src/main.py
+
+.PHONY: test
+test:
+	@echo "$(GREEN)Running tests...$(NC)"
+	# Add your test command
+	# $(NPM) test
+	# $(PYTHON) -m pytest
+
+.PHONY: test-watch
+test-watch:
+	@echo "$(GREEN)Running tests in watch mode...$(NC)"
+	# Add your test watch command
+	# $(NPM) test -- --watch
+	# $(PYTHON) -m pytest-watch
+
+.PHONY: lint
+lint:
+	@echo "$(GREEN)Running linters...$(NC)"
+	# Add your lint commands
+	# $(NPM) run lint
+	# $(PYTHON) -m pylint src/
+
+.PHONY: format
+format:
+	@echo "$(GREEN)Formatting code...$(NC)"
+	# Add your format commands
+	# $(NPM) run format
+	# $(PYTHON) -m black src/ tests/
+
+.PHONY: build
+build:
+	@echo "$(GREEN)Building project...$(NC)"
+	# Add your build command
+	# $(NPM) run build
+	# $(PYTHON) setup.py build
+
+# ========== Session Management ==========
+
+.PHONY: session
+session:
+	@if [ -z "$(SESSION)" ]; then \
+		echo "$(RED)Error: SESSION variable required$(NC)"; \
+		echo "Usage: make session SESSION=X.Y"; \
+		exit 1; \
+	fi
+	@echo "$(GREEN)Starting Session $(SESSION)...$(NC)"
+	@echo "Session $(SESSION) started at $$(date)" >> SESSION_LOG.md
+	@echo ""
+	@echo "$(YELLOW)Session Goals:$(NC)"
+	@grep -A 10 "Session $(SESSION):" Implementation_Cadence.md | head -15
+	@echo ""
+	@echo "$(GREEN)Environment ready. Good luck!$(NC)"
+
+.PHONY: save
+save:
+	@echo "$(GREEN)Quick saving progress...$(NC)"
+	@git add -A
+	@git commit -m "WIP: Session progress $$(date +%H:%M)" || echo "No changes to commit"
+
+.PHONY: checkpoint
+checkpoint:
+	@echo "$(GREEN)Session checkpoint...$(NC)"
+	@make test
+	@make lint
+	@git add -A
+	@git commit -m "Checkpoint: Session $(SESSION) - $$(date +%Y-%m-%d\ %H:%M)" || true
+	@echo "$(GREEN)✓ Checkpoint complete$(NC)"
+
+.PHONY: handoff
+handoff: context-summary
+	@echo "$(GREEN)Preparing session handoff...$(NC)"
+	@cp SMART_HANDOFF.md.template NEXT_HANDOFF.md 2>/dev/null || \
+		echo "# Session Handoff\n\n## Completed\n\n## Next Steps\n" > NEXT_HANDOFF.md
+	@echo "\n## Recent Changes:" >> NEXT_HANDOFF.md
+	@git log --oneline -10 >> NEXT_HANDOFF.md
+	@echo "$(GREEN)✓ Handoff prepared in NEXT_HANDOFF.md$(NC)"
+
+.PHONY: session-complete
+session-complete: checkpoint handoff
+	@echo "$(GREEN)Completing session...$(NC)"
+	@echo "\nSession completed at $$(date)" >> SESSION_LOG.md
+	@git add -A
+	@git commit -m "Session $(SESSION) complete" || true
+	@echo "$(GREEN)✓ Session complete! Great work!$(NC)"
+
+# ========== Context Management ==========
+
+.PHONY: context-optimize
+context-optimize:
+	@echo "$(GREEN)Optimizing context...$(NC)"
+	@$(PYTHON) scripts/optimize_context.py
+
+.PHONY: context-analyze
+context-analyze:
+	@echo "$(GREEN)Analyzing context usage...$(NC)"
+	@echo "$(YELLOW)Recent session metrics:$(NC)"
+	@grep -h "context efficiency\|tokens" SESSION_LOG.md | tail -10 || echo "No metrics found"
+	@echo ""
+	@echo "$(YELLOW)Most loaded files:$(NC)"
+	@grep -h "^@" SESSION_LOG.md 2>/dev/null | sort | uniq -c | sort -nr | head -10 || echo "No data"
+
+.PHONY: context-summary
+context-summary:
+	@echo "$(GREEN)Generating context summary...$(NC)"
+	@echo "# Context Summary - $$(date +%Y-%m-%d)" > .context-summary.md
+	@echo "\n## Changed Files:" >> .context-summary.md
+	@git diff --name-only >> .context-summary.md
+	@echo "\n## Current TODOs:" >> .context-summary.md
+	@grep -r "TODO" src/ --include="*.py" --include="*.ts" --include="*.js" 2>/dev/null | head -10 >> .context-summary.md || true
+	@echo "$(GREEN)✓ Summary saved to .context-summary.md$(NC)"
+
+.PHONY: context-minimal
+context-minimal:
+	@echo "$(GREEN)Creating minimal context...$(NC)"
+	@echo "# Minimal Context - Session $(SESSION)" > .context-minimal.md
+	@echo "\n## Current State:" >> .context-minimal.md
+	@sed -n '/## 📍 Current State/,/^##/p' CLAUDE.md | head -20 >> .context-minimal.md
+	@echo "\n## Session Tasks:" >> .context-minimal.md
+	@grep -A 15 "Session $(SESSION):" Implementation_Cadence.md >> .context-minimal.md || echo "Session not found"
+	@echo "$(GREEN)✓ Minimal context in .context-minimal.md$(NC)"
+
+# ========== GraphQL Commands (if applicable) ==========
+
+.PHONY: graphql-types
+graphql-types:
+	@echo "$(GREEN)Generating GraphQL types...$(NC)"
+	@$(NPM) run codegen
+
+.PHONY: graphql-scaffold
+graphql-scaffold:
+	@read -p "Feature name: " feature; \
+	$(PYTHON) scripts/scaffold_graphql.py $$feature
+
+.PHONY: graphql-validate
+graphql-validate:
+	@echo "$(GREEN)Validating GraphQL schema...$(NC)"
+	@npx graphql-schema-linter src/graphql/schema/*.graphql
+
+.PHONY: graphql-test
+graphql-test:
+	@echo "$(GREEN)Running GraphQL tests...$(NC)"
+	@$(NPM) test tests/graphql/
+
+# ========== Utility Commands ==========
+
+.PHONY: clean
+clean:
+	@echo "$(GREEN)Cleaning build artifacts...$(NC)"
+	@rm -rf build/ dist/ *.egg-info __pycache__ .pytest_cache
+	@find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
+	@find . -type f -name "*.pyc" -delete 2>/dev/null || true
+	@echo "$(GREEN)✓ Clean complete$(NC)"
+
+.PHONY: todo
+todo:
+	@echo "$(GREEN)Current TODOs:$(NC)"
+	@grep -r "TODO" src/ tests/ --include="*.py" --include="*.ts" --include="*.js" --include="*.graphql" 2>/dev/null | grep -v node_modules || echo "No TODOs found!"
+
+.PHONY: stats
+stats:
+	@echo "$(GREEN)Project Statistics:$(NC)"
+	@echo "Lines of code:"
+	@find src -name "*.py" -o -name "*.ts" -o -name "*.js" | xargs wc -l | tail -1
+	@echo ""
+	@echo "Test files:"
+	@find tests -name "*.test.*" -o -name "*_test.py" | wc -l
+	@echo ""
+	@echo "TODO count:"
+	@grep -r "TODO" src/ tests/ 2>/dev/null | wc -l || echo "0"
+
+# ========== Git Shortcuts ==========
+
+.PHONY: status
+status:
+	@git status --short
+
+.PHONY: diff
+diff:
+	@git diff
+
+.PHONY: log
+log:
+	@git log --oneline -20
+
+# ========== Docker Commands (if applicable) ==========
+
+.PHONY: docker-build
+docker-build:
+	@echo "$(GREEN)Building Docker image...$(NC)"
+	@docker build -t $(PROJECT_NAME) .
+
+.PHONY: docker-run
+docker-run:
+	@echo "$(GREEN)Running Docker container...$(NC)"
+	@docker run -it --rm $(PROJECT_NAME)
+
+.PHONY: docker-compose-up
+docker-compose-up:
+	@echo "$(GREEN)Starting services...$(NC)"
+	@docker-compose up -d
+
+.PHONY: docker-compose-down
+docker-compose-down:
+	@echo "$(GREEN)Stopping services...$(NC)"
+	@docker-compose down
+
+# ========== Advanced Workflows ==========
+
+.PHONY: workflow
+workflow: verify context-analyze
+	@echo "$(GREEN)Ready for development!$(NC)"
+	@echo "Next steps:"
+	@echo "1. Run 'make session SESSION=X.Y' to start"
+	@echo "2. Use 'make save' to checkpoint progress"
+	@echo "3. Run 'make session-complete' when done"
+
+.PHONY: release
+release: test lint build
+	@echo "$(GREEN)Preparing release...$(NC)"
+	@echo "Version: $$(cat VERSION 2>/dev/null || echo '0.0.1')"
+	# Add release commands
+
+# Catch-all target for custom commands
+%:
+	@echo "$(RED)Unknown target: $@$(NC)"
+	@echo "Run 'make help' for available commands"
+	@exit 1
