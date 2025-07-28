@@ -1,6 +1,10 @@
 # 🚀 ProjectSetupContext - Master Setup Guide
 
-note from author: This is an improvement made to an existing system I was using that was incredibly effective. I'm looking forward to testing this more complete solution as it has a structure that better maintains symbol recognition (naming convention) and will hopeful help with the abstraction complexity when working with more conplex architecture (my memory ststems).
+note from author: This is an improvement made to an existing system I was using that was incredibly effective. It creates a plan for a project that you add a Program Requirements Document (PRD) for. 
+
+This plan is a complete workflow cadence system that is optimized for proper context utilization each session. This workflow becomes integrated with handoffs between context windows with handy things like adding workflow behavior to the entire session. 
+
+I'm looking forward to testing this more complete solution as it has a structure that better maintains symbol recognition (naming convention) and will hopefully help with the abstraction complexity when working with more complex architecture (ie. memory systems).
 
 cheers,
 steve
