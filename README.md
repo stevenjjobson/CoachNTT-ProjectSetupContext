@@ -6,6 +6,8 @@ This plan is a complete workflow cadence system that is optimized for proper con
 
 I'm looking forward to testing this more complete solution as it has a structure that better maintains symbol recognition (naming convention) and will hopefully help with the abstraction complexity when working with more complex architecture (ie. memory systems).
 
+The original tested plan is available here [GitHub Releases](https://github.com/stevenjjobson/CoachNTT-ProjectSetupContext/releases)
+
 cheers,
 steve
 
